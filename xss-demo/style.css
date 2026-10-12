@@ -27,6 +27,15 @@ h2 { font-size: 16px; margin: 24px 0 10px; }
 }
 .badge.safe { background: #52c41a; }
 
+.toggle-btn {
+  display: inline-block;
+  margin: 8px 0;
+  background: #52c41a;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+.toggle-btn.vuln { background: #ff4d4f; }
+
 .tip { color: #888; font-size: 13px; margin: 8px 0 16px; }
 
 .cookie-bar {
