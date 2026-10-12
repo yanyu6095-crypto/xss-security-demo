@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 【第 4 步会用到的防御】CSP 内容安全策略：禁止页面内联脚本执行。
+       现在先注释掉，否则我们的"攻击演示"也会被它拦住 -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self'"> -->
+  <title>Web 安全攻防演练 Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>留言板 <span class="badge" id="modeBadge">漏洞模式</span></h1>
+    <p class="tip">当前为漏洞模式：用户输入未经任何处理直接拼进页面。</p>
+
+    <!-- 模拟一个已登录用户的会话 Cookie，用于演示"偷 Cookie" -->
+    <div class="cookie-bar">
+      <button id="setCookieBtn">① 设置模拟会话 Cookie</button>
+      <span id="cookieStatus">未设置</span>
+    </div>
+
+    <form id="msgForm">
+      <input type="text" id="nickname" placeholder="昵称" required>
+      <textarea id="content" placeholder="留言内容（把攻击载荷粘贴到这里试试）" required></textarea>
+      <button type="submit">发布留言</button>
+    </form>
+
+    <!-- 攻击载荷快捷填充：点一下自动填入输入框，方便演示 -->
+    <div class="payloads">
+      <span>常用攻击载荷（点击填入）：</span>
+      <button class="payload" data-payload='<img src=x onerror=alert("XSS 攻击成功！")>'>弹窗攻击</button>
+      <button class="payload" data-payload='<img src=x onerror=alert("你的Cookie是："+document.cookie)>'>窃取 Cookie</button>
+      <button class="payload" data-payload='<svg onload=alert("svg也能执行脚本")>'>SVG 载荷</button>
+    </div>
+
+    <h2>全部留言</h2>
+    <button id="clearBtn">清空留言</button>
+    <ul id="msgList"></ul>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
